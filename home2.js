@@ -12,6 +12,7 @@ import {COURSE} from './Course';
 export default class Home extends React.Component {
   constructor() {
     super();
+
     // this.physicalArray = [];
     // this.onlineArray = [];
     // this.newArray = COURSE;
