@@ -8,7 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-import {COURSE, physicalArray, onlineArray} from './Course';
+import {COURSE, physicalArray, onlineArray, tab} from './Course';
 export default class Home extends React.Component {
   state = {
     newArray: [],
@@ -20,18 +20,19 @@ export default class Home extends React.Component {
       newArray: COURSE,
       arr: [],
     };
+    console.log(tab);
   }
-  handler = () => {
-    let newArr = this.state.arr;
+  // handler = () => {
+  //   let newArr = this.state.arr;
 
-    for (let index = 0; index < COURSE.length; index++) {
-      if (!this.state.arr.includes(COURSE.OtherCourseTypeName)) {
-        newArr.push(COURSE.OtherCourseTypeName);
-      }
-    }
-    this.setState({arr: newArr});
-    console.log(this.arr);
-  };
+  //   for (let index = 0; index < COURSE.length; index++) {
+  //     if (!this.state.arr.includes(COURSE.OtherCourseTypeName)) {
+  //       newArr.push(COURSE.OtherCourseTypeName);
+  //     }
+  //   }
+  //   this.setState({arr: newArr});
+  //   console.log("hello");
+  // };
   render() {
     const renderItem = ({item}) => (
       <View style={styles.item}>
@@ -49,6 +50,18 @@ export default class Home extends React.Component {
         </Text>
       </View>
     );
+    const tabsList = tab.map((data) => {
+      let count = 0;
+      return (
+        <TouchableOpacity onPress={() => {
+          this.setState({newArray: physicalArray});
+        }} key={data}><Text style={styles.text}>  {COURSE.forEach(element => {
+          if (element.OtherCourseTypeName == data) {
+            count+=1;
+          }
+        })}{data} ({count}) </Text></TouchableOpacity>
+      )
+    })
 
     return (
       <View style={styles.container}>
@@ -59,21 +72,10 @@ export default class Home extends React.Component {
             }}>
             <Text style={styles.text}>All ({COURSE.length})</Text>
           </TouchableOpacity>
-          {
-            this.state.arr.map(item => {
-              <TouchableOpacity>
-                <Text style={styles.text}>{item}</Text>
-              </TouchableOpacity>;
-            })
-            // for (let index = 0; index < this.arr.length; index++) {
-            //   <TouchableOpacity>
-            //   <Text style={styles.text}>{this.arr.item}</Text>
-            //   </TouchableOpacity>
-            //  }
-          }
+          {tabsList}
         </View>
         <FlatList
-          data={this.state.newArray}
+          data={COURSE}
           renderItem={renderItem}
           keyExtractor={item => item.CourseId}
         />
@@ -81,6 +83,8 @@ export default class Home extends React.Component {
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
