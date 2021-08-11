@@ -146,3 +146,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+{
+  /* /* <TouchableOpacity
+            onPress={() => {
+              this.setState({newArray: physicalArray});
+            }}>
+            <Text style={styles.text}>Physical ({physicalArray.length})</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({newArray: onlineArray});
+            }}>
+            <Text style={styles.text}>Online ({onlineArray.length})</Text>
+          </TouchableOpacity> */
+}

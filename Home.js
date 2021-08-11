@@ -12,14 +12,26 @@ import {COURSE, physicalArray, onlineArray} from './Course';
 export default class Home extends React.Component {
   state = {
     newArray: [],
+    arr: Array,
   };
   constructor() {
     super();
     this.state = {
       newArray: COURSE,
+      arr: [],
     };
   }
+  handler = () => {
+    let newArr = this.state.arr;
 
+    for (let index = 0; index < COURSE.length; index++) {
+      if (!this.state.arr.includes(COURSE.OtherCourseTypeName)) {
+        newArr.push(COURSE.OtherCourseTypeName);
+      }
+    }
+    this.setState({arr: newArr});
+    console.log(this.arr);
+  };
   render() {
     const renderItem = ({item}) => (
       <View style={styles.item}>
@@ -47,21 +59,18 @@ export default class Home extends React.Component {
             }}>
             <Text style={styles.text}>All ({COURSE.length})</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({newArray: physicalArray});
-            }}>
-            <Text style={styles.text}>Physical ({physicalArray.length})</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({newArray: onlineArray});
-            }}>
-            <Text style={styles.text}>Online ({onlineArray.length})</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={console.log(Sorter.handler)}>
-            <Text style={styles.text}>Cyka</Text>
-          </TouchableOpacity>
+          {
+            this.state.arr.map(item => {
+              <TouchableOpacity>
+                <Text style={styles.text}>{item}</Text>
+              </TouchableOpacity>;
+            })
+            // for (let index = 0; index < this.arr.length; index++) {
+            //   <TouchableOpacity>
+            //   <Text style={styles.text}>{this.arr.item}</Text>
+            //   </TouchableOpacity>
+            //  }
+          }
         </View>
         <FlatList
           data={this.state.newArray}
@@ -71,28 +80,6 @@ export default class Home extends React.Component {
       </View>
     );
   }
-}
-
-class Sorter {
-  state = {
-    arr: Array,
-  };
-  constructor() {
-    this.state = {
-      arr: [],
-    };
-  }
-  handler = () => {
-    let newArr = this.state.arr;
-
-    for (let index = 0; index < COURSE.length; index++) {
-      if (!this.state.arr.includes(COURSE.OtherCourseTypeName)) {
-        newArr.push(COURSE.OtherCourseTypeName);
-      }
-      console.log(this.arr);
-    }
-    this.setState({arr: newArr});
-  };
 }
 
 const styles = StyleSheet.create({
